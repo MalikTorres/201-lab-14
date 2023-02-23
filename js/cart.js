@@ -96,6 +96,7 @@ function clearCart() {
 }
 
 // Fill in the <tr>'s under the <tbody> for each item in the cart
+// Fill in the <tr>'s under the <tbody> for each item in the cart
 function showCart() {
   let tableBody = document.querySelector('#cart tbody');
 
@@ -117,37 +118,19 @@ function showCart() {
     row.appendChild(quantityCell);
 
     // Create a TD for the item name
-    let itemCell = document.createElement('td');
-    itemCell.textContent = item.product.name;
-    row.appendChild(itemCell);
+    let nameCell = document.createElement('td');
+    nameCell.textContent = item.product.name;
+    row.appendChild(nameCell);
 
     // Add the TR to the TBODY and each of the TD's to the TR
     tableBody.appendChild(row);
-
-    // Add an event listener to the delete button
-    deleteButton.addEventListener('click', () => {
-      // Find the item in the cart
-      const itemIndex = state.cart.items.findIndex(cartItem => cartItem.product.name === item.product.name);
-      if (itemIndex !== -1) {
-        // Remove the item from the cart
-        state.cart.items.splice(itemIndex, 1);
-        // Save the updated cart to local storage
-        state.cart.saveToLocalStorage();
-        // Update the cart count in the header
-        state.cart.updateCounter();
-        // Update the cart preview
-        updateCartPreview();
-        // Remove the row from the table
-        row.remove();
-      }
-    });
   });
 }
 
 function removeItemFromCart(event) {
   if (event.target.tagName === 'BUTTON') {
     let row = event.target.parentNode.parentNode;
-    let itemName = row.lastElementChild.textContent;
+    let itemName = row.querySelector('td:last-child').textContent;
     const item = state.cart.items.find(item => item.product.name === itemName);
 
     if (item) {

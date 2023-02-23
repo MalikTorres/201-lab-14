@@ -106,7 +106,10 @@ function handleSubmit(event) {
 // Add the selected item and quantity to the cart
 function addSelectedItemToCart() {
   // Suss out the item picked from the select list
-  let selectedProduct = document.getElementById('items').value;
+  let selectedProductName = document.getElementById('items').value;
+
+  // Find the Product object in state.allProducts with the same name as the selected product
+  let selectedProduct = state.allProducts.find(product => product.name === selectedProductName);
 
   // Get the quantity
   let selectedQuantity = parseInt(document.getElementById('quantity').value);
@@ -114,6 +117,7 @@ function addSelectedItemToCart() {
   // Using those, add one item to the Cart
   state.cart.addItem(selectedProduct, selectedQuantity);
 }
+
 
 // As you add items into the cart, show them (item & quantity) in the cart preview div
 function updateCartPreview() {
